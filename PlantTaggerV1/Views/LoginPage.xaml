@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Name="xLoginPage"
+             x:Class="PlantTaggerV1.Views.LoginPage"
+             xmlns:core="clr-namespace:PlantTaggerV1.Libraries"
+             xmlns:views="clr-namespace:PlantTaggerV1.Views"
+             xmlns:viewModelBase="clr-namespace:PlantTaggerV1.ViewModels.Base"
+             xmlns:converters="clr-namespace:PlantTaggerV1.Converters"
+             xmlns:behaviors="clr-namespace:PlantTaggerV1.Behaviors"
+             viewModelBase:ViewModelLocator.AutoWireViewModel="true">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:FirstValidationErrorConverter x:Key="FirstValidationErrorConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <RelativeLayout>         
+        <Image Source="background.jpeg" Opacity="0.3" 
+                    RelativeLayout.WidthConstraint=
+                      "{ConstraintExpression Type=RelativeToParent, Property=Width}"
+                    RelativeLayout.HeightConstraint=
+                      "{ConstraintExpression Type=RelativeToParent, Property=Height}"/>
+        <Grid RelativeLayout.WidthConstraint=
+                  "{ConstraintExpression Type=RelativeToParent, Property=Width}"
+                RelativeLayout.HeightConstraint=
+                  "{ConstraintExpression Type=RelativeToParent, Property=Height}">
+
+            <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="8*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="AUTO"/>
+                    <RowDefinition Height="AUTO"/>
+                    <RowDefinition Height="AUTO"/>
+                    <RowDefinition Height="AUTO"/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+                <!--<Label BackgroundColor="Gray" Text="Login Page!" Grid.Row="1" Grid.Column="1"/>-->
+                <views:TextBoxWithImage 
+                    x:Name="xEmailTB" 
+                    FontAwesomeLabel="{Static core:FontAwesome.FAEnvelope}"
+                    Input="{Binding UserName.Value, Mode=TwoWay}"
+                    ErrorText="{Binding UserName.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                    Grid.Row="2" Grid.Column="1">
+                    <views:TextBoxWithImage.Behaviors>
+                        <behaviors:EventToCommandBehavior
+                            EventName="InputChanged"
+                            Command="{Binding ValidateUserNameCommand}" />
+                    </views:TextBoxWithImage.Behaviors>
+                </views:TextBoxWithImage>
+                <views:TextBoxWithImage 
+                    x:Name="xPasswordTB" 
+                    FontAwesomeLabel="{Static core:FontAwesome.FALock}" 
+                    IsPassword="true"
+                    Input="{Binding Password.Value, Mode=TwoWay}"
+                    ErrorText="{Binding Password.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                    Grid.Row="3" Grid.Column="1">
+                    <views:TextBoxWithImage.Behaviors>
+                        <behaviors:EventToCommandBehavior
+                            EventName="InputChanged"
+                            Command="{Binding ValidatePasswordCommand}" />
+                    </views:TextBoxWithImage.Behaviors>
+                </views:TextBoxWithImage>
+                <Button 
+                    Text="Sign In" 
+                    TextColor="White" 
+                    FontAttributes="Bold" 
+                    FontSize="22" 
+                    BackgroundColor="Navy" 
+                    IsEnabled="{Binding InputValid}"
+                    Command="{Binding SignInCommand}"
+                    Grid.Row="4" Grid.Column="1" />
+                <views:FacebookLoginButton Grid.Row="5" Grid.Column="1"/>  
+        </Grid>
+        <Button 
+            Text="No Account Yet? Sign Up Here"
+            HorizontalOptions="End"
+            VerticalOptions="End"
+            Margin="10"
+            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width}"
+            RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height}"
+            Command="{Binding SignUpCommand}"
+        />
+        <RelativeLayout
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand"
+            IsVisible="{Binding IsBusy}"
+            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width}"
+            RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height}">
+            <RelativeLayout
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width}"
+                RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height}">
+                <ActivityIndicator
+                    x:Name="xIndicator"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    IsRunning="{Binding IsBusy}"
+                    Color="Black"/>
+            </RelativeLayout>
+        </RelativeLayout>
+  </RelativeLayout>
+</ContentPage>

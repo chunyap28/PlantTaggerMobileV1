@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="PlantTaggerV1.Views.FacebookLoginButton"
+             xmlns:core="clr-namespace:PlantTaggerV1.Libraries"
+             xmlns:views="clr-namespace:PlantTaggerV1.Views"
+             HeightRequest="45">
+    <ContentView.GestureRecognizers>
+       <TapGestureRecognizer Tapped="OnButtonClicked" />
+    </ContentView.GestureRecognizers>
+	<ContentView.Content>
+        <Grid VerticalOptions="FillAndExpand" ColumnSpacing="1" Padding="0" Margin="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="4*"/>
+            </Grid.ColumnDefinitions>
+            <views:FontAwesomeLabel x:Name="xFacebookLabel" Text="{Static core:FontAwesome.FAFacebookSquare}" BackgroundColor="Blue" FontSize="30" WidthRequest="10" HeightRequest="10" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="White" Grid.Row="0" Grid.Column="0"/>
+            <Label Text=" Login with Facebook" TextColor="White" Font="Bold" BackgroundColor="Blue" VerticalTextAlignment="Center" Grid.Row="0" Grid.Column="1"/>
+        </Grid>
+    </ContentView.Content>
+        <!--<Image Aspect="AspectFill" Source="facebook_sign_in_button.png">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer
+                        Tapped="OnButtonClicked"  />
+          </Image.GestureRecognizers>
+        </Image>-->
+</ContentView>

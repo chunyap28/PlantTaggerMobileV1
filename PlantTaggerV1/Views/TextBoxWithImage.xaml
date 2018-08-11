@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="PlantTaggerV1.Views.TextBoxWithImage"
+             xmlns:views="clr-namespace:PlantTaggerV1.Views"
+             x:Name="this">
+	<ContentView.Content>
+        <Grid VerticalOptions="FillAndExpand">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="4*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <views:FontAwesomeLabel x:Name="xLabel" FontSize="30" WidthRequest="10" HeightRequest="10" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="Black" BackgroundColor="Transparent" Grid.Row="0" Grid.Column="0"/>
+            <Entry x:Name="xEntry" 
+                   Text="{Binding Source={x:Reference this}, Path=Input, Mode=TwoWay}" 
+                   BackgroundColor="White" 
+                   Style="{StaticResource EntryStyle}"
+                   Grid.Row="0" Grid.Column="1"/>
+            <Label Text="{Binding Source={x:Reference this}, Path=ErrorText}" Style="{StaticResource ValidationErrorLabelStyle}" Grid.Row="1" Grid.Column="1"/>
+        </Grid>
+    </ContentView.Content>
+</ContentView>
