@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Name="xMainPage"
@@ -8,8 +8,48 @@
              xmlns:viewModelBase="clr-namespace:PlantTaggerV1.ViewModels.Base"
              xmlns:converters="clr-namespace:PlantTaggerV1.Converters"
              xmlns:behaviors="clr-namespace:PlantTaggerV1.Behaviors"
-             viewModelBase:ViewModelLocator.AutoWireViewModel="true">    
-    <ContentPage.Content>
-        <Label>This is main page</Label>
-    </ContentPage.Content>
+             viewModelBase:ViewModelLocator.AutoWireViewModel="true"
+             Title="{Binding GardenName}">
+    <RelativeLayout>
+        <Image Source="background.jpeg" Opacity="0.3" 
+                    RelativeLayout.WidthConstraint=
+                      "{ConstraintExpression Type=RelativeToParent, Property=Width}"
+                    RelativeLayout.HeightConstraint=
+                      "{ConstraintExpression Type=RelativeToParent, Property=Height}"/>
+        <Grid RelativeLayout.WidthConstraint=
+                  "{ConstraintExpression Type=RelativeToParent, Property=Width}"
+                RelativeLayout.HeightConstraint=
+                  "{ConstraintExpression Type=RelativeToParent, Property=Height}">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="7*"/>
+            </Grid.RowDefinitions>
+
+            <Grid RelativeLayout.WidthConstraint=
+                  "{ConstraintExpression Type=RelativeToParent, Property=Width}"
+                RelativeLayout.HeightConstraint=
+                  "{ConstraintExpression Type=RelativeToParent, Property=Height}"
+                Grid.Row="0"
+                Grid.Column="0"  
+                BackgroundColor="Aqua"  >
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="7*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Image Source="profile_icon.png" Grid.Row="0" Grid.Column="0"/>
+                <Label Text="Your Garden" Grid.Row="0" Grid.Column="1"/>
+            </Grid>    
+                
+            
+        </Grid>
+  </RelativeLayout>
 </ContentPage>
