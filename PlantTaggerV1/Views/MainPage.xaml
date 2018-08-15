@@ -45,11 +45,14 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <Image Source="profile_icon.png" Grid.Row="0" Grid.Column="0"/>
-                <Label Text="Your Garden" Grid.Row="0" Grid.Column="1"/>
-            </Grid>    
+                <Image Source="profile_icon.png" VerticalOptions="Start" Grid.Row="0" Grid.Column="0"/>
+                <Label Text="{Binding PlantCount, StringFormat='You have {0:G} plants in your garden'}" Grid.Row="0" Grid.Column="1"/>
+            </Grid>
+
+            <ListView Grid.Row="1" Grid.Column="0" BackgroundColor="Red">
                 
-            
+            </ListView>
+                            
         </Grid>
   </RelativeLayout>
 </ContentPage>

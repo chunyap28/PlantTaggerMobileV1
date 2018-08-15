@@ -6,6 +6,7 @@ namespace PlantTaggerV1.ViewModels
     public class MainPageModel : ViewModelBase
     {
         private string _gardenName;
+        private int _plantCount = 0;
 
         public MainPageModel()
         {
@@ -22,6 +23,19 @@ namespace PlantTaggerV1.ViewModels
             {
                 _gardenName = value;
                 RaisePropertyChanged(() => GardenName);
+            }
+        }
+
+        public int PlantCount
+        {
+            get
+            {
+                return _plantCount;
+            }
+            set
+            {
+                _plantCount = value;
+                RaisePropertyChanged(() => PlantCount);
             }
         }
     }
