@@ -17,17 +17,19 @@ namespace PlantTaggerV1.ViewModels
         private bool _inputValid;
 
         private IAuthService _authService;
+        private ISettingsService _settingsService;
 
         public ICommand ValidateUserNameCommand => new Command(() => ValidateUserName());
         public ICommand ValidatePasswordCommand => new Command(() => ValidatePassword());
         public ICommand SignInCommand => new Command(async () => await SignInAsync());
         public ICommand SignUpCommand => new Command(async () => await SignUpAsync());
 
-        public LoginPageModel(IAuthService authService){
+        public LoginPageModel(IAuthService authService, ISettingsService settingsService){
             _userName = new ValidatableObject<string>();
             _password = new ValidatableObject<string>();
 
             _authService = authService;
+            _settingsService = settingsService;
 
             AddValidations();
         }
@@ -116,7 +118,8 @@ namespace PlantTaggerV1.ViewModels
                     throw new Exception("Invalid Input");
                 }
                 AccessToken token = await _authService.Login(_userName.Value, _password.Value);
-                System.Diagnostics.Debug.WriteLine("Result: " + token);
+                _settingsService.AuthAccessToken = token.ToString();
+                System.Diagnostics.Debug.WriteLine("Result: " + _settingsService.AuthAccessToken);
                 IsLogin = true;
                 await Authenticated();
             }

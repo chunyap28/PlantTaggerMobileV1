@@ -34,7 +34,7 @@ namespace PlantTaggerV1.Services
             if (string.IsNullOrEmpty(_settingsService.AuthAccessToken))
                 return NavigateToAsync<LoginPageModel>();
             else
-                return NavigateToAsync<LoginPageModel>();
+                return NavigateToAsync<MainPageModel>();
         }
 
         public Task NavigateToAsync<TViewModel>() where TViewModel : ViewModelBase

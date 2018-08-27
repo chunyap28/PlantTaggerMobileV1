@@ -20,6 +20,10 @@ namespace PlantTaggerV1.Views
             this.Content = content;
 
             var vm = BindingContext as MainPageModel;
+
+            ToolbarItems.Add(new ToolbarItem("Filter", "filter.png", async () => { 
+                var page = new ContentPage(); 
+                var result = await page.DisplayAlert("Title", "Message", "Accept", "Cancel");}));
         }
     }
 }

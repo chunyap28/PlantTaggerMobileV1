@@ -49,10 +49,10 @@ namespace PlantTaggerV1.Services
 
             System.Diagnostics.Debug.WriteLine("Post Request: uri->" + uri.ToString() + ", param->" + data.ToString());
             HttpResponseMessage response = await httpClient.PostAsync(uri, data);
-            System.Diagnostics.Debug.WriteLine("Login Response: " + response.ToString());
 
             await HandleResponse(response);
             string serialized = await response.Content.ReadAsStringAsync();
+            System.Diagnostics.Debug.WriteLine("Response: " + serialized);
 
             TResult result = await Task.Run(() =>
                 JsonConvert.DeserializeObject<TResult>(serialized, _serializerSettings));
