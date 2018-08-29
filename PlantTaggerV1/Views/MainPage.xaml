@@ -11,8 +11,7 @@
              viewModelBase:ViewModelLocator.AutoWireViewModel="true"
              Title="{Binding GardenName}">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Name="Create1" Command="{Binding CreateNewScopeCommand}" Order="Secondary"></ToolbarItem>
-        <ToolbarItem Name="Create2" Command="{Binding CreateNewScopeCommand}" Order="Secondary"></ToolbarItem>
+        <ToolbarItem Name="..." Clicked="OnSideMenuRequested"></ToolbarItem>
     </ContentPage.ToolbarItems>
     <RelativeLayout>
         <Image Source="background.jpeg" Opacity="0.3" 

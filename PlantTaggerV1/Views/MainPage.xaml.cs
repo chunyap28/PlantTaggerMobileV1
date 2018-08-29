@@ -1,18 +1,41 @@
 ﻿using System;
-using System.Collections.Generic;
 using PlantTaggerV1.ViewModels;
-
 using Xamarin.Forms;
+using SlideOverKit;
+using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace PlantTaggerV1.Views
 {
-    public partial class MainPage : ContentPage
+    public partial class MainPage : ContentPage, IMenuContainerPage
     {
+        private RightSideMenu _rightSideMenu = new RightSideMenu();
+
         public MainPage()
         {
             InitializeComponent();
+            SlideMenu = _rightSideMenu;
         }
 
+        public Action HideMenuAction
+        {
+            get;
+            set;
+        }
+
+        public Action ShowMenuAction
+        {
+            get;
+            set;
+        }
+
+        public SlideMenuView SlideMenu
+        {
+            get;
+            set;
+        }
+
+        /*
         protected override async void OnAppearing()
         {
             var content = this.Content;
@@ -20,10 +43,30 @@ namespace PlantTaggerV1.Views
             this.Content = content;
 
             var vm = BindingContext as MainPageModel;
+        }*/
 
-            ToolbarItems.Add(new ToolbarItem("Filter", "filter.png", async () => { 
-                var page = new ContentPage(); 
-                var result = await page.DisplayAlert("Title", "Message", "Accept", "Cancel");}));
+        protected override void OnBindingContextChanged()
+        {
+            base.OnBindingContextChanged();
+
+            _rightSideMenu.BindingContext = BindingContext;
+        }
+
+        private void OnSideMenuRequested(object sender, EventArgs e){
+            //System.Diagnostics.Debug.WriteLine("Side Menu Requested");
+            Filter();
+        }
+
+        private void Filter()
+        {
+            if (SlideMenu.IsShown)
+            {
+                HideMenuAction?.Invoke();
+            }
+            else
+            {
+                ShowMenuAction?.Invoke();
+            }
         }
     }
 }

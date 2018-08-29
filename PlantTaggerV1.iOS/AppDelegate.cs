@@ -4,6 +4,7 @@ using System.Linq;
 
 using Foundation;
 using UIKit;
+using SlideOverKit.iOS;
 
 namespace PlantTaggerV1.iOS
 {
@@ -24,6 +25,7 @@ namespace PlantTaggerV1.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
+            SlideOverKit.iOS.SlideOverKit.Init();
 
             return base.FinishedLaunching(app, options);
         }
