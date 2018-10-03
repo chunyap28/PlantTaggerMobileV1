@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Application xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             x:Class="PlantTaggerV1.App">
+             x:Class="PlantTaggerV1.App"
+             xmlns:converters="clr-namespace:PlantTaggerV1.Converters">
     <Application.Resources>
         <!-- Application resource dictionary -->
         <ResourceDictionary>
@@ -33,6 +34,9 @@
             <Color x:Key="AndroidListViewBackgroundColor">Transparent</Color>
             <Color x:Key="iOSListViewBackgroundColor">Transparent</Color>
 
+            <!-- CONVERTERS -->
+            <converters:ItemTappedEventArgsConverter x:Key="ItemTappedEventArgsConverter" />
+            
             <!-- STYLES -->
             <Style x:Key="ValidationErrorLabelStyle"
                    TargetType="{x:Type Label}">

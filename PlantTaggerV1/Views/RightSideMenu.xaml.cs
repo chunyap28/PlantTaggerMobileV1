@@ -24,5 +24,11 @@ namespace PlantTaggerV1.Views
             // This is shadow view color, you can set a transparent color
             this.BackgroundViewColor = Color.Transparent;
         }
+
+        private void OnItemSelected(object sender, EventArgs e)
+        {
+            
+            
+        }
     }
 }

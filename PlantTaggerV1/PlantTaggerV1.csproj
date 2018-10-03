@@ -18,6 +18,8 @@
   <ItemGroup>
     <Folder Include="Services\Permissions\" />
     <Folder Include="Models\Permissions\" />
+    <Folder Include="Views\Templates\" />
+    <Folder Include="Models\Menu\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Remove="MainPage.xaml" />
