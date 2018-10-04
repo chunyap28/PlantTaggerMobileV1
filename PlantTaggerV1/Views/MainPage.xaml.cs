@@ -4,6 +4,7 @@ using Xamarin.Forms;
 using SlideOverKit;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Collections.ObjectModel;
 
 namespace PlantTaggerV1.Views
 {
@@ -15,6 +16,7 @@ namespace PlantTaggerV1.Views
         {
             InitializeComponent();
             SlideMenu = _rightSideMenu;
+            this._rightSideMenu.MenuItemTapped += OnMenuItemTapped;
         }
 
         public Action HideMenuAction
@@ -35,21 +37,41 @@ namespace PlantTaggerV1.Views
             set;
         }
 
-        /*
-        protected override async void OnAppearing()
-        {
-            var content = this.Content;
-            this.Content = null;
-            this.Content = content;
-
-            var vm = BindingContext as MainPageModel;
-        }*/
-
         protected override void OnBindingContextChanged()
         {
             base.OnBindingContextChanged();
 
             _rightSideMenu.BindingContext = BindingContext;
+            setupSideMenuItems();
+        }
+
+        private void setupSideMenuItems(){
+            ObservableCollection<MenuItem> menuItems = new ObservableCollection<MenuItem>();
+
+            MenuItem settingsItem = new MenuItem();
+            settingsItem.Text = "Settings";
+            MenuItem logoutItem = new MenuItem();
+            logoutItem.Text = "Logout";
+            logoutItem.SetBinding(MenuItem.CommandProperty, new Binding("LogoutCommand", source: BindingContext));
+
+            menuItems.Add(settingsItem);
+            menuItems.Add(logoutItem);
+            this._rightSideMenu.ListView.ItemsSource = menuItems;
+        }
+
+        private void OnMenuItemTapped(Object sender, EventArgs e)
+        {
+            //System.Diagnostics.Debug.WriteLine("OnMenuItemTapped: close side menu here");
+            ItemTappedEventArgs args = e as ItemTappedEventArgs;
+            if( args != null ){
+                MenuItem item = args.Item as MenuItem;
+                if (item != null && item.Command != null)
+                {
+                    item.Command.Execute(item);
+                }    
+            }
+
+            HideMenuAction?.Invoke();
         }
 
         private void OnSideMenuRequested(object sender, EventArgs e){

@@ -11,16 +11,18 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <ListView 
+            x:Name="listView"
             Grid.ColumnSpan="2" 
             Grid.Row="0" 
             SeparatorVisibility="None" 
-            ItemsSource="{Binding MenuItems}">
-            <ListView.Behaviors>
+            ItemTapped="OnItemTapped"
+            >
+           <!-- <ListView.Behaviors>
                 <behaviors:EventToCommandBehavior                    
                     EventName="ItemTapped"
                     Command="{Binding SelectMenuItemCommand}"
                     EventArgsConverter="{StaticResource ItemTappedEventArgsConverter}" />
-            </ListView.Behaviors>
+            </ListView.Behaviors>-->
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
