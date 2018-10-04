@@ -3,6 +3,7 @@ using PlantTaggerV1.ViewModels.Base;
 using PlantTaggerV1.Validations;
 using PlantTaggerV1.Services;
 using PlantTaggerV1.Models;
+using PlantTaggerV1.Models.User;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -35,6 +36,14 @@ namespace PlantTaggerV1.ViewModels
         }
 
         public override Task InitializeAsync(object navigationData){
+            if (navigationData is LogoutParameter){
+                var logoutParameter = (LogoutParameter)navigationData;
+
+                if (logoutParameter.Logout){
+                    Logout();
+                }
+            }
+
             return base.InitializeAsync(navigationData);
         }
 
@@ -136,6 +145,14 @@ namespace PlantTaggerV1.ViewModels
         private async Task Authenticated(){
             await NavigationService.NavigateToAsync<MainPageModel>();
             await NavigationService.RemoveLastFromBackStackAsync();
+        }
+
+        private void Logout()
+        {
+            var authIdToken = _settingsService.AuthIdToken;
+
+            _authService.Logout();
+            _settingsService.AuthAccessToken = string.Empty;
         }
 
         private async Task SignUpAsync()

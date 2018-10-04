@@ -19,7 +19,9 @@
     <Folder Include="Services\Permissions\" />
     <Folder Include="Models\Permissions\" />
     <Folder Include="Views\Templates\" />
-    <Folder Include="Models\Menu\" />
+    <Folder Include="Models\User\" />
+    <Folder Include="Services\Users\" />
+    <Folder Include="Services\Exceptions\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Remove="MainPage.xaml" />

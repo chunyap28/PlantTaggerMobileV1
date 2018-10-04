@@ -9,10 +9,12 @@ namespace PlantTaggerV1.Services
     public class AuthService : IAuthService
     {
         IRequestProvider _requestProvider;
+        ISettingsService _settingsService;
 
-        public AuthService(IRequestProvider requestProvider)
+        public AuthService(IRequestProvider requestProvider, ISettingsService settingsService)
         {
             _requestProvider = requestProvider;
+            _settingsService = settingsService;
         }
 
         public async Task<AccessToken> Login(string email, string password){
@@ -25,6 +27,14 @@ namespace PlantTaggerV1.Services
 
             var token = await _requestProvider.PostAsync<AccessToken>(uri, param);
             return token;
+        }
+
+        public async Task Logout(){
+            var authToken = _settingsService.AuthAccessToken;
+            if( authToken != String.Empty ){
+                string uri = Constants.PtBasedUrl + "auth";
+                await _requestProvider.DeleteAsync(uri, authToken);
+            }
         }
     }
 }
