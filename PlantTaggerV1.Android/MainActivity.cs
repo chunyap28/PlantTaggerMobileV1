@@ -21,6 +21,7 @@ namespace PlantTaggerV1.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
+            global::Xamarin.Auth.Presenters.XamarinAndroid.AuthenticationConfiguration.Init(this, bundle);
             UserDialogs.Init(this);
             LoadApplication(new App());
         }
