@@ -31,7 +31,7 @@ namespace PlantTaggerV1.Services
 
         public Task InitializeAsync()
         {
-            if (string.IsNullOrEmpty(_settingsService.AuthAccessToken))
+            if(_settingsService.AuthAccessToken == null)
                 return NavigateToAsync<LoginPageModel>();
             else
                 return NavigateToAsync<MainPageModel>();

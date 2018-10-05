@@ -1,5 +1,5 @@
 ﻿using System;
-namespace PlantTaggerV1.Models.User
+namespace PlantTaggerV1.Models
 {
     public class LogoutParameter
     {

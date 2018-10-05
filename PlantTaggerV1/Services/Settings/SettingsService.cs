@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using PlantTaggerV1.Models;
 
 namespace PlantTaggerV1.Services
 {
@@ -29,10 +30,25 @@ namespace PlantTaggerV1.Services
 
         #region Settings Properties
 
-        public string AuthAccessToken
+        public AccessToken AuthAccessToken
         {
-            get => GetValueOrDefault(AccessToken, AccessTokenDefault);
-            set => AddOrUpdateValue(AccessToken, value);
+            get
+            {
+                string json = GetValueOrDefault(AccessToken, AccessTokenDefault);
+                if( json != String.Empty ){
+                    return PlantTaggerV1.Models.AccessToken.fromString(json);    
+                }
+                return null;
+            }
+            set
+            {
+                if( value != null ){
+                    AddOrUpdateValue(AccessToken, value.ToString());    
+                }else{
+                    AddOrUpdateValue(AccessToken, String.Empty);    
+                }
+
+            }
         }
 
         public string AuthIdToken

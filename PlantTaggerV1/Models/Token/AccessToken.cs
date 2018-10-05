@@ -1,5 +1,4 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace PlantTaggerV1.Models
 {
@@ -15,6 +14,10 @@ namespace PlantTaggerV1.Models
 
         public override string ToString(){
             return JsonConvert.SerializeObject(this);
+        }
+
+        public static AccessToken fromString(string json){
+            return JsonConvert.DeserializeObject<AccessToken>(json);
         }
     }
 }

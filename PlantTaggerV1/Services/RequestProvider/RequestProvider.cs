@@ -119,7 +119,7 @@ namespace PlantTaggerV1.Services
 
             if (!string.IsNullOrEmpty(token))
             {
-                httpClient.DefaultRequestHeaders.Add("Authentication", token);
+                httpClient.DefaultRequestHeaders.Add("Authorization", token);
                 //httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             }
             return httpClient;

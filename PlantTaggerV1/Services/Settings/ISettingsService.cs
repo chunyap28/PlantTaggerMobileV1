@@ -1,10 +1,11 @@
 ﻿using System.Threading.Tasks;
+using PlantTaggerV1.Models;
 
 namespace PlantTaggerV1.Services
 {
     public interface ISettingsService
     {
-        string AuthAccessToken { get; set; }
+        AccessToken AuthAccessToken { get; set; }
         string AuthIdToken { get; set; }
         bool UseMocks { get; set; }
         //string UrlBase { get; set; }

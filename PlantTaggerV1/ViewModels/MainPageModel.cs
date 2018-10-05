@@ -1,6 +1,6 @@
 ﻿using System;
 using PlantTaggerV1.ViewModels.Base;
-using PlantTaggerV1.Models.User;
+using PlantTaggerV1.Models;
 using PlantTaggerV1.Services;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -12,7 +12,7 @@ namespace PlantTaggerV1.ViewModels
     {
         private string _gardenName;
         private int _plantCount = 0;
-        private UserProfile _userProfile;
+        private UserProfile _currentUserProfile;
         private IUserService _userService;
 
         public ICommand LogoutCommand => new Command(async () => await LogoutAsync());
@@ -56,16 +56,16 @@ namespace PlantTaggerV1.ViewModels
             }
         }
 
-        public UserProfile UserProfile
+        public UserProfile CurrentUserProfile
         {
             get
             {
-                return _userProfile;
+                return _currentUserProfile;
             }
             set
             {
-                _userProfile = value;
-                RaisePropertyChanged(() => UserProfile);
+                _currentUserProfile = value;
+                RaisePropertyChanged(() => CurrentUserProfile);
             }
         }
 
@@ -82,7 +82,7 @@ namespace PlantTaggerV1.ViewModels
 
         private async Task GetUserProfileAsync(){
             try{
-                this._userProfile = await _userService.GetProfile();    
+                this.CurrentUserProfile = await _userService.GetProfile();
             }catch(Exception ex){
                 System.Diagnostics.Debug.WriteLine("Error: " + ex.Message);
             }

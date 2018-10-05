@@ -30,10 +30,10 @@ namespace PlantTaggerV1.Services
         }
 
         public async Task Logout(){
-            var authToken = _settingsService.AuthAccessToken;
-            if( authToken != String.Empty ){
+            AccessToken authToken = _settingsService.AuthAccessToken;
+            if( authToken != null ){
                 string uri = Constants.PtBasedUrl + "auth";
-                await _requestProvider.DeleteAsync(uri, authToken);
+                await _requestProvider.DeleteAsync(uri, authToken.Token);
             }
         }
     }

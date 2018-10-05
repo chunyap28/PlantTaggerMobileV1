@@ -3,7 +3,6 @@ using PlantTaggerV1.ViewModels.Base;
 using PlantTaggerV1.Validations;
 using PlantTaggerV1.Services;
 using PlantTaggerV1.Models;
-using PlantTaggerV1.Models.User;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -127,8 +126,8 @@ namespace PlantTaggerV1.ViewModels
                     throw new Exception("Invalid Input");
                 }
                 AccessToken token = await _authService.Login(_userName.Value, _password.Value);
-                _settingsService.AuthAccessToken = token.ToString();
-                System.Diagnostics.Debug.WriteLine("Result: " + _settingsService.AuthAccessToken);
+                _settingsService.AuthAccessToken = token;
+                System.Diagnostics.Debug.WriteLine("Result: " + _settingsService.AuthAccessToken.ToString());
                 IsLogin = true;
                 await Authenticated();
             }
@@ -152,7 +151,7 @@ namespace PlantTaggerV1.ViewModels
             var authIdToken = _settingsService.AuthIdToken;
 
             _authService.Logout();
-            _settingsService.AuthAccessToken = string.Empty;
+            _settingsService.AuthAccessToken = null;
         }
 
         private async Task SignUpAsync()

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using PlantTaggerV1.Models.User;
+using PlantTaggerV1.Models;
 using PlantTaggerV1.Configs;
 using PlantTaggerV1.Services.Exceptions;
 
@@ -18,10 +18,10 @@ namespace PlantTaggerV1.Services
         }
 
         public async Task<UserProfile> GetProfile(){
-            var authToken = _settingsService.AuthAccessToken;
-            if (authToken != String.Empty){
+            AccessToken authToken = _settingsService.AuthAccessToken;
+            if (authToken != null){
                 string uri = Constants.PtBasedUrl + "user";
-                var userProfile = await _requestProvider.GetAsync<UserProfile>(uri);
+                var userProfile = await _requestProvider.GetAsync<UserProfile>(uri, authToken.Token);
                 return userProfile;
             }
 
