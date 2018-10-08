@@ -75,6 +75,7 @@ namespace PlantTaggerV1.Views
         }
 
         private void OnSideMenuRequested(object sender, EventArgs e){
+            //System.Diagnostics.Debug.WriteLine("OnSideMenuRequested");
             if (SlideMenu.IsShown)
             {
                 HideMenuAction?.Invoke();

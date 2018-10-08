@@ -11,7 +11,7 @@
              viewModelBase:ViewModelLocator.AutoWireViewModel="true"
              Title="{Binding GardenName}">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Name="..." Clicked="OnSideMenuRequested"></ToolbarItem>
+        <ToolbarItem Name="..." Text="..."  Order="Primary" Clicked="OnSideMenuRequested"></ToolbarItem>
     </ContentPage.ToolbarItems>
     <RelativeLayout>
         <Image Source="background.jpeg" Opacity="0.3" 

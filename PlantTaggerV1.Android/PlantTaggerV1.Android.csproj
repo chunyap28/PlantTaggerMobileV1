@@ -325,6 +325,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CustomRenderers\FontAwesomeLabelRenderer.cs" />
     <Compile Include="Renderers\FontAwesomeRenderer.cs" />
+    <Compile Include="Renderers\RightSideMenuRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
