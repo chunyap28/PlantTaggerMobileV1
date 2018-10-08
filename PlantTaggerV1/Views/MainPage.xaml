@@ -50,7 +50,7 @@
 
                 <Image Source="profile_icon.png" VerticalOptions="Start" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"/>
                 <Label Text="{Binding CurrentUserProfile.Name, StringFormat='Hello! {0:G}'}" Grid.Row="0" Grid.Column="1"/>
-                <Label Text="{Binding PlantCount, StringFormat='You have {0:G} plants in your garden'}" Grid.Row="1" Grid.Column="1"/>
+                <Label Text="{Binding Plants.Count, StringFormat='You have {0:G} plants in your garden'}" Grid.Row="1" Grid.Column="1"/>
             </Grid>
 
             <ListView Grid.Row="1" Grid.Column="0" BackgroundColor="Red">

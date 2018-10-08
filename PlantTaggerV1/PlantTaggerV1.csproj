@@ -22,6 +22,10 @@
     <Folder Include="Models\User\" />
     <Folder Include="Services\Users\" />
     <Folder Include="Services\Exceptions\" />
+    <Folder Include="Services\Plants\" />
+    <Folder Include="Models\Plant\" />
+    <Folder Include="Services\Base\" />
+    <Folder Include="Extensions\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Remove="MainPage.xaml" />
@@ -29,5 +33,10 @@
   <ItemGroup>
     <Compile Remove="Views\MyPage.cs" />
     <Compile Remove="ViewModels\RightSideMenuModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Views\Templates\PlantItemTemplate.xaml.cs">
+      <DependentUpon>PlantItemTemplate.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

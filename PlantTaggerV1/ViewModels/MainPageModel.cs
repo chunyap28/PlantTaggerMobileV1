@@ -2,6 +2,7 @@
 using PlantTaggerV1.ViewModels.Base;
 using PlantTaggerV1.Models;
 using PlantTaggerV1.Services;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -13,19 +14,23 @@ namespace PlantTaggerV1.ViewModels
         private string _gardenName;
         private int _plantCount = 0;
         private UserProfile _currentUserProfile;
+        private ObservableCollection<Plant> _plants;
         private IUserService _userService;
+        private IPlantService _plantService;
 
         public ICommand LogoutCommand => new Command(async () => await LogoutAsync());
 
-        public MainPageModel(IUserService userService)
+        public MainPageModel(IUserService userService, IPlantService plantService)
         {
             this._gardenName = "My Garden";
             this._userService = userService;
+            this._plantService = plantService;
         }
 
         public override async Task InitializeAsync(object navigationData)
         {
             await this.GetUserProfileAsync();
+            await this.GetPlantsAsync();
 
             await base.InitializeAsync(navigationData);
         }
@@ -69,6 +74,19 @@ namespace PlantTaggerV1.ViewModels
             }
         }
 
+        public ObservableCollection<Plant> Plants
+        {
+            get
+            {
+                return _plants;
+            }
+            set
+            {
+                _plants = value;
+                RaisePropertyChanged(() => Plants);
+            }
+        }
+
         private async Task LogoutAsync()
         {            
             IsBusy = true;
@@ -86,7 +104,15 @@ namespace PlantTaggerV1.ViewModels
             }catch(Exception ex){
                 System.Diagnostics.Debug.WriteLine("Error: " + ex.Message);
             }
+        }
 
+        private async Task GetPlantsAsync(){
+            try{
+                this.Plants = await _plantService.GetList();
+            }
+            catch (Exception ex){
+                System.Diagnostics.Debug.WriteLine("Error: " + ex.Message);
+            }
         }
     }
 }
