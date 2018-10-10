@@ -30,16 +30,18 @@ namespace PlantTaggerV1.Services
                 return new ObservableCollection<Plant>();
         }
 
-        /*
-        public async Task<byte[]> GetProfileImage(string plantId)
+        public async Task<PlantTaggerV1.Models.Image> GetProfileImage(string plantId)
         {
             AccessToken authToken = getAuthToken();
 
             string uri = Constants.PtBasedUrl + "user/plant/" + plantId + "/profile-image";
-            var image = await _requestProvider.GetAsync<PlantCollection>(uri, authToken.Token);
-            Stream stream = new MemoryStream()
-            var imageSource = ImageSource.FromStream(() => stream);
-            MyImage.Source = imageSource;
-        }*/
+            PlantTaggerV1.Models.Image image = await _requestProvider.GetAsync<PlantTaggerV1.Models.Image>(uri, authToken.Token);
+            if (image == null){
+                return new PlantTaggerV1.Models.Image();
+            }
+            else{
+                return image;
+            }
+        }
     }
 }

@@ -36,6 +36,7 @@
 
             <!-- CONVERTERS -->
             <converters:ItemTappedEventArgsConverter x:Key="ItemTappedEventArgsConverter" />
+            <converters:ImageConverter x:Key="ImageConverter" />
             
             <!-- STYLES -->
             <Style x:Key="ValidationErrorLabelStyle"

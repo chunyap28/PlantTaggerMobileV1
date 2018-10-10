@@ -13,7 +13,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Image Source="profile_icon.png" 
+            <Image Source="{Binding ProfileImage, Converter={StaticResource ImageConverter}}" 
                    Margin="5"
                    Grid.Row="0" 
                    Grid.Column="0" 

@@ -109,6 +109,9 @@ namespace PlantTaggerV1.ViewModels
         private async Task GetPlantsAsync(){
             try{
                 this.Plants = await _plantService.GetList();
+                foreach(Plant plant in this.Plants){
+                    plant.ProfileImage = await _plantService.GetProfileImage(plant.Uuid);
+                }
             }
             catch (Exception ex){
                 System.Diagnostics.Debug.WriteLine("Error: " + ex.Message);

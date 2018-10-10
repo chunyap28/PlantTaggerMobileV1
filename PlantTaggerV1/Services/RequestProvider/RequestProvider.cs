@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using PlantTaggerV1.Converters;
 
 namespace PlantTaggerV1.Services
 {
@@ -22,6 +23,7 @@ namespace PlantTaggerV1.Services
                 NullValueHandling = NullValueHandling.Ignore
             };
             _serializerSettings.Converters.Add(new StringEnumConverter());
+            //_serializerSettings.Converters.Add(new JsonPathConverter());
         }
 
         public async Task<TResult> GetAsync<TResult>(string uri, string token = "")

@@ -8,5 +8,6 @@ namespace PlantTaggerV1.Services
     public interface IPlantService
     {
         Task<ObservableCollection<Plant>> GetList();
+        Task<PlantTaggerV1.Models.Image> GetProfileImage(string plantId);
     }
 }
