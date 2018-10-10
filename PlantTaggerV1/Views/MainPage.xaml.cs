@@ -85,5 +85,10 @@ namespace PlantTaggerV1.Views
                 ShowMenuAction?.Invoke();
             }
         }
+
+        private void OnPlantItemTapped(ListView sender, ItemTappedEventArgs e)
+        {
+            sender.SelectedItem = null;
+        }
     }
 }

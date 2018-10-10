@@ -12,13 +12,16 @@ namespace PlantTaggerV1.ViewModels
     public class MainPageModel : ViewModelBase
     {
         private string _gardenName;
-        private int _plantCount = 0;
+        private bool _isRefreshing = false;
         private UserProfile _currentUserProfile;
         private ObservableCollection<Plant> _plants;
         private IUserService _userService;
         private IPlantService _plantService;
 
         public ICommand LogoutCommand => new Command(async () => await LogoutAsync());
+        public ICommand RefreshPlantsCommand => new Command(async () => await RefreshPlantsAsync());
+        public ICommand AddPlantCommand => new Command(async () => await AddPlantAsync());
+        public ICommand ShowPlantDetailCommand => new Command<Plant>(async (item) => await ShowPlantDetailAsync(item));
 
         public MainPageModel(IUserService userService, IPlantService plantService)
         {
@@ -37,10 +40,7 @@ namespace PlantTaggerV1.ViewModels
 
         public string GardenName
         {
-            get
-            {
-                return _gardenName;
-            }
+            get { return _gardenName; }
             set
             {
                 _gardenName = value;
@@ -48,25 +48,20 @@ namespace PlantTaggerV1.ViewModels
             }
         }
 
-        public int PlantCount
+
+        public bool IsRefreshing
         {
-            get
-            {
-                return _plantCount;
-            }
+            get { return _isRefreshing; }
             set
             {
-                _plantCount = value;
-                RaisePropertyChanged(() => PlantCount);
+                _isRefreshing = value;
+                RaisePropertyChanged(() => IsRefreshing);
             }
         }
 
         public UserProfile CurrentUserProfile
         {
-            get
-            {
-                return _currentUserProfile;
-            }
+            get { return _currentUserProfile; }
             set
             {
                 _currentUserProfile = value;
@@ -76,15 +71,19 @@ namespace PlantTaggerV1.ViewModels
 
         public ObservableCollection<Plant> Plants
         {
-            get
-            {
-                return _plants;
-            }
+            get { return _plants; }
             set
             {
                 _plants = value;
                 RaisePropertyChanged(() => Plants);
             }
+        }
+
+        private async Task RefreshPlantsAsync()
+        {
+            IsRefreshing = true;
+            await GetPlantsAsync();
+            IsRefreshing = false;
         }
 
         private async Task LogoutAsync()
@@ -116,6 +115,14 @@ namespace PlantTaggerV1.ViewModels
             catch (Exception ex){
                 System.Diagnostics.Debug.WriteLine("Error: " + ex.Message);
             }
+        }
+
+        private async Task AddPlantAsync(){
+            await NavigationService.NavigateToAsync<AddPlantPageModel>();
+        }
+
+        private async Task ShowPlantDetailAsync(Plant plant){
+            await NavigationService.NavigateToAsync<PlantDetailPageModel>(plant);
         }
     }
 }

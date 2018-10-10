@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="PlantTaggerV1.Views.AddPlantPage"
+    xmlns:views="clr-namespace:PlantTaggerV1.Views"
+    xmlns:viewModelBase="clr-namespace:PlantTaggerV1.ViewModels.Base"
+    viewModelBase:ViewModelLocator.AutoWireViewModel="true">
+    <ContentPage.Content>
+        <Label Text="Add Plant Page"/>
+    </ContentPage.Content>
+</ContentPage>

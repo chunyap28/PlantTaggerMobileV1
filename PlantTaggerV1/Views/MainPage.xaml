@@ -42,8 +42,9 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="3*"/>
-                <RowDefinition Height="7*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="6*"/>
+                <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
 
             <Grid RelativeLayout.WidthConstraint=
@@ -72,7 +73,17 @@
                 Grid.Row="1" 
                 Grid.Column="0" 
                 BackgroundColor="Red"
+                ItemTapped="OnPlantItemTapped"
+                IsPullToRefreshEnabled="True"                
+                RefreshCommand="{Binding RefreshPlantsCommand}"
+                IsRefreshing="{Binding IsRefreshing}"
                 Style="{StaticResource PlantsListStyle}"> 
+                <ListView.Behaviors>
+                    <behaviors:EventToCommandBehavior                    
+                        EventName="ItemTapped"
+                        Command="{Binding ShowPlantDetailCommand}"
+                        EventArgsConverter="{StaticResource ItemTappedEventArgsConverter}" />
+                </ListView.Behaviors>
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -81,7 +92,14 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-                            
+                    
+            <Button 
+                Grid.Row="2"
+                Grid.Column="0"
+                Margin="5"
+                Command="{Binding AddPlantCommand}"
+                Image="addbutton.png">                
+            </Button>
         </Grid>
   </RelativeLayout>
 </ContentPage>
