@@ -8,8 +8,22 @@
              xmlns:viewModelBase="clr-namespace:PlantTaggerV1.ViewModels.Base"
              xmlns:converters="clr-namespace:PlantTaggerV1.Converters"
              xmlns:behaviors="clr-namespace:PlantTaggerV1.Behaviors"
+             xmlns:templates="clr-namespace:PlantTaggerV1.Views.Templates"
              viewModelBase:ViewModelLocator.AutoWireViewModel="true"
              Title="{Binding GardenName}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="PlantsListStyle" 
+               TargetType="{x:Type ListView}">
+                <Setter Property="RowHeight"
+                        Value="100" />
+                <Setter Property="VerticalOptions"
+                        Value="Center" />
+                <Setter Property="Margin"
+                        Value="0" />
+            </Style>            
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.ToolbarItems>
         <ToolbarItem Name="..." Text="..."  Order="Primary" Clicked="OnSideMenuRequested"></ToolbarItem>
     </ContentPage.ToolbarItems>
@@ -53,8 +67,19 @@
                 <Label Text="{Binding Plants.Count, StringFormat='You have {0:G} plants in your garden'}" Grid.Row="1" Grid.Column="1"/>
             </Grid>
 
-            <ListView Grid.Row="1" Grid.Column="0" BackgroundColor="Red">
-                
+            <ListView 
+                ItemsSource="{Binding Plants}"
+                Grid.Row="1" 
+                Grid.Column="0" 
+                BackgroundColor="Red"
+                Style="{StaticResource PlantsListStyle}"> 
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <templates:PlantItemTemplate />
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
             </ListView>
                             
         </Grid>
