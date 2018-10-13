@@ -14,18 +14,29 @@ namespace PlantTaggerV1.Converters
                 return _ReturnDefault();
             }
 
-            PlantTaggerV1.Models.Image image = value as PlantTaggerV1.Models.Image;
-            if( image == null ){
+            byte[] content = null;
+            if ( value is PlantTaggerV1.Models.Image){
+                content = ((Models.Image)value).Content;
+            }else if( value is byte[]){
+                content = value as byte[];
+            }
+
+            if( content == null ){
                 return _ReturnDefault();
             }
 
-            Stream stream = new MemoryStream(image.Content);
-            return ImageSource.FromStream(() => stream);
+            return _ConvertByte(content);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
+        }
+
+        protected object _ConvertByte(Byte[] content)
+        {
+            Stream stream = new MemoryStream(content);
+            return ImageSource.FromStream(() => stream);
         }
 
         protected object _ReturnDefault(){

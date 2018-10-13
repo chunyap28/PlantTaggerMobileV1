@@ -22,7 +22,7 @@ namespace PlantTaggerV1.Services
             AccessToken authToken = getAuthToken();
 
             string uri = Constants.PtBasedUrl + "user/plants";
-            var plantCollection = await _requestProvider.GetAsync<PlantCollection>(uri, authToken.Token);
+            var plantCollection = await _requestProvider.GetAsync<BaseCollection<Plant>>(uri, authToken.Token);
 
             if (plantCollection?.Data != null)
                 return plantCollection?.Data.ToObservableCollection();
@@ -35,12 +35,43 @@ namespace PlantTaggerV1.Services
             AccessToken authToken = getAuthToken();
 
             string uri = Constants.PtBasedUrl + "user/plant/" + plantId + "/profile-image";
-            PlantTaggerV1.Models.Image image = await _requestProvider.GetAsync<PlantTaggerV1.Models.Image>(uri, authToken.Token);
-            if (image == null){
+            BaseResult<PlantTaggerV1.Models.Image> data = await _requestProvider.GetAsync<BaseResult<PlantTaggerV1.Models.Image>>(uri, authToken.Token);
+            if (data.Result == null){
                 return new PlantTaggerV1.Models.Image();
             }
             else{
-                return image;
+                return data.Result;
+            }
+        }
+
+        public async Task<ObservableCollection<PlantTaggerV1.Models.Image>> GetImages(string plantId){
+            AccessToken authToken = getAuthToken();
+
+            string uri = Constants.PtBasedUrl + "user/plant/" + plantId + "/images";
+            BaseCollection<PlantTaggerV1.Models.Image> collection = await _requestProvider.GetAsync<BaseCollection<PlantTaggerV1.Models.Image>>(uri, authToken.Token);
+            if (collection.Data == null)
+            {
+                return new ObservableCollection<PlantTaggerV1.Models.Image>();
+            }
+            else
+            {
+                return collection?.Data.ToObservableCollection();
+            }
+        }
+
+        public async Task<PlantTaggerV1.Models.Image> GetImage(string plantId, string imgId)
+        {
+            AccessToken authToken = getAuthToken();
+
+            string uri = Constants.PtBasedUrl + "user/plant/" + plantId + "/image/" + imgId;
+            BaseResult<PlantTaggerV1.Models.Image> data = await _requestProvider.GetAsync<BaseResult<PlantTaggerV1.Models.Image>>(uri, authToken.Token);
+            if (data.Result == null)
+            {
+                return new PlantTaggerV1.Models.Image();
+            }
+            else
+            {
+                return data.Result;
             }
         }
     }

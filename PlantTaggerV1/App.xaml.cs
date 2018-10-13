@@ -5,6 +5,7 @@ using PlantTaggerV1.Views;
 using PlantTaggerV1.Services;
 using PlantTaggerV1.ViewModels.Base;
 using System.Threading.Tasks;
+using DLToolkit.Forms.Controls;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace PlantTaggerV1
@@ -15,6 +16,7 @@ namespace PlantTaggerV1
 
         public App()
         {
+            FlowListView.Init();
             InitializeComponent();
             InitApp();
             //MainPage = new MainPage();

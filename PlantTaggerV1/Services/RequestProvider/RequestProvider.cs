@@ -33,7 +33,7 @@ namespace PlantTaggerV1.Services
 
             await HandleResponse(response);
             string serialized = await response.Content.ReadAsStringAsync();
-
+            System.Diagnostics.Debug.WriteLine("Response: " + serialized);
             TResult result = await Task.Run(() => 
                 JsonConvert.DeserializeObject<TResult>(serialized, _serializerSettings));
 

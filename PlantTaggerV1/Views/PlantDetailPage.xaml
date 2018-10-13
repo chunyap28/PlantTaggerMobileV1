@@ -4,8 +4,52 @@
              x:Class="PlantTaggerV1.Views.PlantDetailPage"
              xmlns:views="clr-namespace:PlantTaggerV1.Views"
              xmlns:viewModelBase="clr-namespace:PlantTaggerV1.ViewModels.Base"
+             xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
              viewModelBase:ViewModelLocator.AutoWireViewModel="true">
     <ContentPage.Content>
-        <Label Text="Plant Detail Page"/>
+        <Grid RelativeLayout.WidthConstraint=
+                  "{ConstraintExpression Type=RelativeToParent, Property=Width}"
+                RelativeLayout.HeightConstraint=
+                  "{ConstraintExpression Type=RelativeToParent, Property=Height}">
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="7*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            
+            <Image Source="{Binding CurrentPlant.ProfileImage, Converter={StaticResource ImageConverter}}" 
+                   Margin="5"
+                   Grid.Row="0" 
+                   Grid.Column="0"/>
+            <Label Grid.Row="0" Grid.Column="1" BackgroundColor="Green"
+                Text="{Binding CurrentPlant.Name}"/>
+            
+            <flv:FlowListView 
+                Grid.Row="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                FlowColumnCount="3" 
+                SeparatorVisibility="None" 
+                HasUnevenRows="false"
+                FlowItemTappedCommand="{Binding ItemTappedCommand}" FlowLastTappedItem="{Binding LastTappedItem}"
+                FlowItemsSource="{Binding PlantImages}" >
+
+                <flv:FlowListView.FlowColumnTemplate>
+                    <DataTemplate>
+                        <Image HorizontalOptions="Fill" 
+                               VerticalOptions="Fill" 
+                               Source="{Binding Content, Converter={StaticResource ImageConverter}}"/>
+                        <!--<Label HorizontalOptions="Fill" VerticalOptions="Fill" 
+                            XAlign="Center" YAlign="Center" Text="{Binding Uuid}"/>-->
+                    </DataTemplate>
+                </flv:FlowListView.FlowColumnTemplate>
+
+            </flv:FlowListView>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

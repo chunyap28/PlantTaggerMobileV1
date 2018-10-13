@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace PlantTaggerV1.Models
 {
-    public class PlantCollection
+    public class BaseCollection<T>
     {
         [JsonProperty("page")]
         public int Page { get; set; }
@@ -18,6 +18,6 @@ namespace PlantTaggerV1.Models
         public int TotalPages { get; set; }
 
         [JsonProperty("result")]
-        public List<Plant> Data { get; set;}
+        public List<T> Data { get; set; }
     }
 }
