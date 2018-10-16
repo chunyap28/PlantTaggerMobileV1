@@ -36,6 +36,7 @@ namespace PlantTaggerV1.ViewModels.Base
             // Services - by default, TinyIoC will register interface registrations as singletons.
             _container.Register<INavigationService, NavigationService>();
             _container.Register<IDialogService, DialogService>();
+            _container.Register<IPhotoPickerService, PhotoPickerService>();
             _container.Register<IRequestProvider, RequestProvider>();
             _container.Register<ISettingsService, SettingsService>();
             _container.Register<IAuthService, AuthService>();

@@ -29,6 +29,7 @@
     <Folder Include="Services\Base\" />
     <Folder Include="Extensions\" />
     <Folder Include="Models\Common\" />
+    <Folder Include="Services\Common\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Remove="MainPage.xaml" />

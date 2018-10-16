@@ -14,16 +14,18 @@ namespace PlantTaggerV1.ViewModels
     {
         private ImageSource _chosenImage = "addnewimage.png";
         private IPlantService _plantService;
+        private IPhotoPickerService _photoPickerService;
         private Plant _newPlant;
 
         public ICommand ChoosePhotoCommand => new Command(async () => await ChoosePhotoAsync());
         public ICommand SavePlantCommand => new Command(async () => await SavePlantAsync());
 
-        public AddPlantPageModel(IPlantService plantService)
+        public AddPlantPageModel(IPlantService plantService, IPhotoPickerService photoPickerService)
         {
             _newPlant = new Plant();
             _newPlant.Since = DateTime.Now;
             _plantService = plantService;
+            _photoPickerService = photoPickerService;
         }
 
         public override async Task InitializeAsync(object navigationData)
@@ -52,35 +54,7 @@ namespace PlantTaggerV1.ViewModels
         }
 
         protected async Task ChoosePhotoAsync(){
-            await CrossMedia.Current.Initialize();
-
-            /*
-            if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
-            {
-                await DialogService.ShowAlertAsync("No Camera", ":( No camera available.", "OK");
-                return null;
-            }*/
-
-            var file = await CrossMedia.Current.PickPhotoAsync((new PickMediaOptions
-            {
-                PhotoSize = PhotoSize.MaxWidthHeight,
-                MaxWidthHeight = 800
-            }));
-            /*
-            var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
-            {
-                Directory = "Sample",
-                Name = "test.jpg"
-            });*/
-
-            if (file == null)
-                return;
-
-            //await DialogService.ShowAlertAsync("File Location", file.Path, "OK");
-            ChosenImage = file.Path;
-            PlantTaggerV1.Models.Image img = new PlantTaggerV1.Models.Image();
-            img.Reference = new FileReference();
-            img.fromStream(file.GetStream());
+            PlantTaggerV1.Models.Image img = await _photoPickerService.PickPhotoAsync();
             NewPlant.ProfileImage = img;
         }
 
