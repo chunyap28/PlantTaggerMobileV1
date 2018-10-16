@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using FFImageLoading.Forms.Touch;
 using Foundation;
 using UIKit;
 using SlideOverKit.iOS;
@@ -27,6 +27,7 @@ namespace PlantTaggerV1.iOS
             global::Xamarin.Auth.Presenters.XamarinIOS.AuthenticationConfiguration.Init();
             LoadApplication(new App());
             SlideOverKit.iOS.SlideOverKit.Init();
+            CachedImageRenderer.Init();
 
             return base.FinishedLaunching(app, options);
         }

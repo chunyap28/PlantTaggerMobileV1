@@ -3,7 +3,8 @@
     xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
     x:Class="PlantTaggerV1.Views.Templates.PlantItemTemplate"
-    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms">
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:model="clr-namespace:PlantTaggerV1.Models">
     <ContentView.Content>
         <Grid VerticalOptions="FillAndExpand">
             <Grid.ColumnDefinitions>
@@ -14,11 +15,26 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Image Source="{Binding ProfileImage, Converter={StaticResource ImageConverter}}" 
+            <ffimageloading:CachedImage
+                Grid.Row="0" 
+                Grid.Column="0" 
+                Grid.RowSpan="2"
+                Margin="5"
+                Source="{Binding ProfileImage, Converter={StaticResource ImageConverter}}">
+                <ffimageloading:CachedImage.CacheKeyFactory>
+                    <model:PlantProfileImageCacheKeyFactory/>
+                </ffimageloading:CachedImage.CacheKeyFactory>
+                <ffimageloading:CachedImage.LoadingPlaceholder>
+                    <OnPlatform x:TypeArguments="ImageSource">
+                    <On Platform="iOS, Android" Value="flower_noimage" />
+                    </OnPlatform>
+                </ffimageloading:CachedImage.LoadingPlaceholder>
+            </ffimageloading:CachedImage>
+            <!--<Image Source="{Binding ProfileImage, Converter={StaticResource ImageConverter}}" 
                    Margin="5"
                    Grid.Row="0" 
                    Grid.Column="0" 
-                   Grid.RowSpan="2" />
+                   Grid.RowSpan="2" />-->
             <Label Text="{Binding Name}" 
                    Margin="5"
                    VerticalOptions="Center" 
