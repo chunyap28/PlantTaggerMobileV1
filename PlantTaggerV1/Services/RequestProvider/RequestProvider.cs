@@ -116,7 +116,7 @@ namespace PlantTaggerV1.Services
         private HttpClient CreateHttpClient(string token = "")
         {
             var httpClient = new HttpClient();
-            httpClient.MaxResponseContentBufferSize = 256000;
+            httpClient.MaxResponseContentBufferSize = 2560000;
             //httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
             if (!string.IsNullOrEmpty(token))

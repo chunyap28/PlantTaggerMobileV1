@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Newtonsoft.Json;
 using PlantTaggerV1.Converters;
 using Xamarin.Forms;
@@ -28,6 +29,20 @@ namespace PlantTaggerV1.Models
                 _content = value;
                 OnPropertyChanged("Content");
             }
+        }
+
+        public void fromStream(Stream input){
+            MemoryStream ms = new MemoryStream();
+            input.CopyTo(ms);
+            this.Content = ms.ToArray();
+        }
+
+        public Stream toStream(){
+            if( _content == null ){
+                return null;
+            }
+
+            return new MemoryStream(_content);
         }
     }
 }

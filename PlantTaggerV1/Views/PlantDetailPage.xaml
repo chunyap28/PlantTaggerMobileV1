@@ -36,13 +36,21 @@
                 FlowColumnCount="3" 
                 SeparatorVisibility="None" 
                 HasUnevenRows="false"
+                Header=""
                 FlowItemTappedCommand="{Binding ItemTappedCommand}" FlowLastTappedItem="{Binding LastTappedItem}"
                 FlowItemsSource="{Binding PlantImages}" >
-
+                
+                <flv:FlowListView.HeaderTemplate>
+                    <DataTemplate>
+                        <Label Text="Header..."/>
+                    </DataTemplate>
+                </flv:FlowListView.HeaderTemplate>
                 <flv:FlowListView.FlowColumnTemplate>
                     <DataTemplate>
                         <Image HorizontalOptions="Fill" 
                                VerticalOptions="Fill" 
+                               Aspect="AspectFill"
+                               MinimumHeightRequest="100"
                                Source="{Binding Content, Converter={StaticResource ImageConverter}}"/>
                         <!--<Label HorizontalOptions="Fill" VerticalOptions="Fill" 
                             XAlign="Center" YAlign="Center" Text="{Binding Uuid}"/>-->

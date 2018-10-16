@@ -11,7 +11,7 @@ namespace PlantTaggerV1.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if( value == null ){
-                return _ReturnDefault();
+                return _ReturnDefault(parameter);
             }
 
             byte[] content = null;
@@ -22,7 +22,7 @@ namespace PlantTaggerV1.Converters
             }
 
             if( content == null ){
-                return _ReturnDefault();
+                return _ReturnDefault(parameter);
             }
 
             return _ConvertByte(content);
@@ -39,7 +39,12 @@ namespace PlantTaggerV1.Converters
             return ImageSource.FromStream(() => stream);
         }
 
-        protected object _ReturnDefault(){
+        protected object _ReturnDefault(object parameter)
+        {
+            if( parameter is string ){
+                return parameter;
+            }
+
             return "profile_icon.png";
         }
     }

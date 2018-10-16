@@ -371,6 +371,7 @@
     <BundleResource Include="Resources\lock_icon.png" />
     <BundleResource Include="Resources\profile_icon.png" />
     <BundleResource Include="Resources\addbutton.png" />
+    <BundleResource Include="Resources\addnewimage.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Renderers\" />

@@ -5,8 +5,61 @@
     x:Class="PlantTaggerV1.Views.AddPlantPage"
     xmlns:views="clr-namespace:PlantTaggerV1.Views"
     xmlns:viewModelBase="clr-namespace:PlantTaggerV1.ViewModels.Base"
+    xmlns:converters="clr-namespace:PlantTaggerV1.Converters"
+    xmlns:behaviors="clr-namespace:PlantTaggerV1.Behaviors"
     viewModelBase:ViewModelLocator.AutoWireViewModel="true">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Name="Done" Text="Done"  Order="Primary" Command="{Binding SavePlantCommand}"></ToolbarItem>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <Label Text="Add Plant Page"/>
+        <Grid RelativeLayout.WidthConstraint=
+                  "{ConstraintExpression Type=RelativeToParent, Property=Width}"
+                RelativeLayout.HeightConstraint=
+                  "{ConstraintExpression Type=RelativeToParent, Property=Height}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <Image Source="{Binding NewPlant.ProfileImage, Converter={StaticResource ImageConverter}, ConverterParameter=addnewimage.png}" 
+                   Grid.Row="0" Grid.Column="0"
+                   Aspect="AspectFill">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer
+                            Command="{Binding ChoosePhotoCommand}"
+                            NumberOfTapsRequired="1" />
+                </Image.GestureRecognizers>
+            </Image>
+            
+            <Grid Grid.Row="1" Grid.Column="0" Margin="5"
+                RelativeLayout.WidthConstraint=
+                  "{ConstraintExpression Type=RelativeToParent, Property=Width}"
+                RelativeLayout.HeightConstraint=
+                  "{ConstraintExpression Type=RelativeToParent, Property=Height}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                
+                <Entry Grid.Row="0" Grid.Column="0" 
+                       VerticalOptions="Center" 
+                       Placeholder="name"
+                       Text="{Binding NewPlant.Name, Mode=TwoWay}"/>
+                <Label Grid.Row="1" Grid.Column="0" 
+                       VerticalOptions="Center" 
+                       Text="When did you plant it?"/>
+                <DatePicker Grid.Row="1" Grid.Column="1" 
+                            VerticalOptions="Center"
+                            Date="{Binding NewPlant.Since, Mode=TwoWay}"/>
+                
+            </Grid>                        
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

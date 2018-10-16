@@ -1,7 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using System.IO;
-using Xamarin.Forms;
+using System.Net.Http;
 using PlantTaggerV1.Models;
 using PlantTaggerV1.Configs;
 using PlantTaggerV1.Extensions;
@@ -28,6 +27,17 @@ namespace PlantTaggerV1.Services
                 return plantCollection?.Data.ToObservableCollection();
             else
                 return new ObservableCollection<Plant>();
+        }
+
+        public async Task AddNew(Plant plant)
+        {
+            AccessToken authToken = getAuthToken();
+            string uri = Constants.PtBasedUrl + "user/plant";
+            MultipartFormDataContent param = new MultipartFormDataContent();
+            param.Add(new StringContent(plant.Name), "name");
+            param.Add(new StringContent(plant.Since.ToString("yyyy-MM-dd")), "since");
+            param.Add(new StreamContent(plant.ProfileImage.toStream()), "img", plant.Name);
+            var newPlant = await _requestProvider.PostAsync<BaseResult<Plant>>(uri, param, authToken.Token);
         }
 
         public async Task<PlantTaggerV1.Models.Image> GetProfileImage(string plantId)
