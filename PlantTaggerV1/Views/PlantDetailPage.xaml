@@ -12,46 +12,54 @@
         <ToolbarItem Name="..." Text="..."  Order="Primary" Clicked="OnOptionRequested"></ToolbarItem>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <Grid RelativeLayout.WidthConstraint=
-                  "{ConstraintExpression Type=RelativeToParent, Property=Width}"
-                RelativeLayout.HeightConstraint=
-                  "{ConstraintExpression Type=RelativeToParent, Property=Height}">
-            
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-                        
-            <flv:FlowListView 
-                Grid.Row="0"
-                Grid.Column="0"
-                FlowColumnCount="3" 
-                SeparatorVisibility="None" 
-                HasUnevenRows="false"
-                Header="{Binding CurrentPlant}"
-                FlowItemTappedCommand="{Binding ItemTappedCommand}" FlowLastTappedItem="{Binding LastTappedItem}"
-                FlowItemsSource="{Binding PlantImages}" >
+        <RelativeLayout>
+            <Grid RelativeLayout.WidthConstraint=
+                      "{ConstraintExpression Type=RelativeToParent, Property=Width}"
+                    RelativeLayout.HeightConstraint=
+                      "{ConstraintExpression Type=RelativeToParent, Property=Height}">
                 
-                <flv:FlowListView.HeaderTemplate>
-                    <DataTemplate>
-                        <templates:PlantDetailHeaderTemplate />
-                    </DataTemplate>
-                </flv:FlowListView.HeaderTemplate>
-                <flv:FlowListView.FlowColumnTemplate>
-                    <DataTemplate>
-                        <Image HorizontalOptions="Fill" 
-                               VerticalOptions="Fill" 
-                               Aspect="AspectFill"
-                               MinimumHeightRequest="100"
-                               Source="{Binding Content, Converter={StaticResource ImageConverter}}"/>
-                        <!--<Label HorizontalOptions="Fill" VerticalOptions="Fill" 
-                            XAlign="Center" YAlign="Center" Text="{Binding Uuid}"/>-->
-                    </DataTemplate>
-                </flv:FlowListView.FlowColumnTemplate>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                            
+                <flv:FlowListView 
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    FlowColumnCount="3" 
+                    SeparatorVisibility="None" 
+                    RowHeight="120"
+                    HasUnevenRows="false"
+                    IsPullToRefreshEnabled="True"
+                    Header="{Binding CurrentPlant}"
+                    RefreshCommand="{Binding RefreshCommand}"
+                    IsRefreshing="{Binding IsRefreshing}"
+                    FlowItemTappedCommand="{Binding ItemTappedCommand}" FlowLastTappedItem="{Binding LastTappedItem}"
+                    FlowItemsSource="{Binding PlantImages}" >
+                    
+                    <flv:FlowListView.HeaderTemplate>
+                        <DataTemplate>
+                            <templates:PlantDetailHeaderTemplate />
+                        </DataTemplate>
+                    </flv:FlowListView.HeaderTemplate>
+                    <flv:FlowListView.FlowColumnTemplate>
+                        <DataTemplate>
+                            <templates:PlantImageTemplate/>                            
+                        </DataTemplate>
+                    </flv:FlowListView.FlowColumnTemplate>
 
-            </flv:FlowListView>
-        </Grid>
+                </flv:FlowListView>
+            </Grid>
+            <Button             
+                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.8}"
+                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.9}"
+                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=.15}"
+                RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=.15}"
+                Command="{Binding AddImageCommand}"
+                Image="addbutton.png">                
+            </Button>
+        </RelativeLayout>
     </ContentPage.Content>
 </ContentPage>

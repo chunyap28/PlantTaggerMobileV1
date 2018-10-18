@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using PlantTaggerV1.Models;
 using PlantTaggerV1.Configs;
 using PlantTaggerV1.Extensions;
@@ -36,7 +37,10 @@ namespace PlantTaggerV1.Services
             MultipartFormDataContent param = new MultipartFormDataContent();
             param.Add(new StringContent(plant.Name), "name");
             param.Add(new StringContent(plant.Since.ToString("yyyy-MM-dd")), "since");
-            param.Add(new StreamContent(plant.ProfileImage.toStream()), "img", plant.Name);
+
+            StreamContent content = new StreamContent(plant.ProfileImage.toStream());
+            content.Headers.ContentType = new MediaTypeHeaderValue(MimeTypes.GetMimeType(plant.ProfileImage.FileName));
+            param.Add(content, "img", plant.ProfileImage.FileName);
             var newPlant = await _requestProvider.PostAsync<BaseResult<Plant>>(uri, param, authToken.Token);
         }
 
@@ -90,6 +94,16 @@ namespace PlantTaggerV1.Services
             {
                 return data.Result;
             }
+        }
+
+        public async Task AddImage(string plantId, PlantTaggerV1.Models.Image image){
+            AccessToken authToken = getAuthToken();
+            string uri = Constants.PtBasedUrl + "user/plant/" + plantId + "/image";
+            MultipartFormDataContent param = new MultipartFormDataContent();
+            StreamContent content = new StreamContent(image.toStream());
+            content.Headers.ContentType = new MediaTypeHeaderValue(MimeTypes.GetMimeType(image.FileName));
+            param.Add(content, "img", image.FileName);
+            await _requestProvider.PostAsync<BaseResult<PlantTaggerV1.Models.Image>>(uri, param, authToken.Token);
         }
     }
 }

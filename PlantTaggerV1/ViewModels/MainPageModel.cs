@@ -51,17 +51,6 @@ namespace PlantTaggerV1.ViewModels
             }
         }
 
-
-        public bool IsRefreshing
-        {
-            get { return _isRefreshing; }
-            set
-            {
-                _isRefreshing = value;
-                RaisePropertyChanged(() => IsRefreshing);
-            }
-        }
-
         public UserProfile CurrentUserProfile
         {
             get { return _currentUserProfile; }

@@ -1,10 +1,12 @@
 ﻿using System;
-using PlantTaggerV1.ViewModels;
-using Xamarin.Forms;
-using SlideOverKit;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
+using Xamarin.Forms;
+using SlideOverKit;
+using PlantTaggerV1.Libraries;
+using PlantTaggerV1.ViewModels;
+using PlantTaggerV1.Models;
 
 namespace PlantTaggerV1.Views
 {
@@ -47,12 +49,14 @@ namespace PlantTaggerV1.Views
         }
 
         private void setupSideMenuItems(){
-            ObservableCollection<MenuItem> menuItems = new ObservableCollection<MenuItem>();
+            ObservableCollection<MenuItemWithFALabel> menuItems = new ObservableCollection<MenuItemWithFALabel>();
 
-            MenuItem settingsItem = new MenuItem();
+            MenuItemWithFALabel settingsItem = new MenuItemWithFALabel();
             settingsItem.Text = "Settings";
-            MenuItem logoutItem = new MenuItem();
+            settingsItem.FALabel = FontAwesome.FACog;
+            MenuItemWithFALabel logoutItem = new MenuItemWithFALabel();
             logoutItem.Text = "Logout";
+            logoutItem.FALabel = FontAwesome.FASignOut;
             logoutItem.SetBinding(MenuItem.CommandProperty, new Binding("LogoutCommand", source: BindingContext));
 
             menuItems.Add(settingsItem);

@@ -1,6 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PlantTaggerV1.Views.Templates.MenuItemTemplate">
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="PlantTaggerV1.Views.Templates.MenuItemTemplate"
+             xmlns:views="clr-namespace:PlantTaggerV1.Views"
+             xmlns:core="clr-namespace:PlantTaggerV1.Libraries">
     <ContentView.Content>
-        <Label Text="{Binding Text}"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="8*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="9*"/>
+                <RowDefinition Height="1"/>
+            </Grid.RowDefinitions>
+            <views:FontAwesomeLabel 
+                x:Name="xLabel" 
+                FontSize="30" 
+                WidthRequest="10" 
+                HeightRequest="10" 
+                VerticalTextAlignment="Center" 
+                HorizontalTextAlignment="Center" 
+                TextColor="Black" 
+                Margin="2"
+                Text="{Binding FALabel}"
+                BackgroundColor="Transparent" 
+                Grid.Row="0" Grid.Column="0"/>
+            <Label 
+                Margin="2"
+                Grid.Row="0"
+                Grid.Column="1"
+                VerticalTextAlignment="Center" 
+                HorizontalTextAlignment="Start"
+                Text="{Binding Text}"/>
+            <BoxView BackgroundColor="Black" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"/>
+        </Grid>
+        
     </ContentView.Content>
 </ContentView>

@@ -1,6 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 using FFImageLoading.Forms;
+using PlantTaggerV1.ViewModels;
 
 namespace PlantTaggerV1.Models
 {
@@ -8,12 +9,12 @@ namespace PlantTaggerV1.Models
     {
         public string GetKey(ImageSource imageSource, object bindingContext)
         {
-            var user = bindingContext as UserProfile;
+            var model = bindingContext as MainPageModel;
 
-            if (user == null || user.ProfileImage == null)
+            if (model == null || model.CurrentUserProfile == null || model.CurrentUserProfile.ProfileImage == null)
                 return null;
 
-            return user.ProfileImage.Reference.Uuid;
+            return model.CurrentUserProfile.ProfileImage.Reference.Uuid;
         }
     }
 }

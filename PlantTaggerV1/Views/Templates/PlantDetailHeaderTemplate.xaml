@@ -12,14 +12,14 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="300"/>
             </Grid.RowDefinitions>
             
             <Image Source="{Binding ProfileImage, Converter={StaticResource ImageConverter}}" 
                    Margin="5"
                    Grid.Row="0" 
                    Grid.Column="0"
-                   Aspect="AspectFill"/>
+                   Aspect="AspectFit"/>
         </Grid>
     </ContentView.Content>
 </ContentView>

@@ -15,11 +15,15 @@ namespace PlantTaggerV1.ViewModels
         private Plant _currentPlant;
         private ObservableCollection<PlantTaggerV1.Models.Image> _plantImages;
         private IPlantService _plantService;
+        private IPhotoPickerService _photoPickerService;
+        public ICommand RefreshCommand => new Command(async () => await RefreshAsync());
         public ICommand DeletePlantCommand => new Command(async () => await DeletePlantAsync());
+        public ICommand AddImageCommand => new Command(async () => await AddImageAsync());
 
-        public PlantDetailPageModel(IPlantService plantService)
+        public PlantDetailPageModel(IPlantService plantService, IPhotoPickerService photoPickerService)
         {
             this._plantService = plantService;
+            this._photoPickerService = photoPickerService;
         }
 
         public override async Task InitializeAsync(object navigationData)
@@ -53,6 +57,13 @@ namespace PlantTaggerV1.ViewModels
             }
         }
 
+        private async Task RefreshAsync()
+        {
+            IsRefreshing = true;
+            await GetPlantImagesAsync();
+            IsRefreshing = false;
+        }
+
         private async Task GetPlantImagesAsync()
         {
             try
@@ -83,6 +94,21 @@ namespace PlantTaggerV1.ViewModels
             {
                 System.Diagnostics.Debug.WriteLine("Error: " + ex.Message);
                 await DialogService.ShowAlertAsync(ex.Message, "Delete Failed", "Ok");
+            }
+        }
+
+        private async Task AddImageAsync()
+        {
+            try
+            {
+                PlantTaggerV1.Models.Image img = await _photoPickerService.PickPhotoAsync();
+                await _plantService.AddImage(CurrentPlant.Uuid, img);
+                await RefreshAsync();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Error: " + ex.Message);
+                await DialogService.ShowAlertAsync(ex.Message, "Add Image Failed", "Ok");
             }
         }
     }

@@ -27,12 +27,7 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Name="..." Text="..."  Order="Primary" Clicked="OnSideMenuRequested"></ToolbarItem>
     </ContentPage.ToolbarItems>
-    <RelativeLayout>
-        <Image Source="background.jpeg" Opacity="0.3" 
-                    RelativeLayout.WidthConstraint=
-                      "{ConstraintExpression Type=RelativeToParent, Property=Width}"
-                    RelativeLayout.HeightConstraint=
-                      "{ConstraintExpression Type=RelativeToParent, Property=Height}"/>
+    <RelativeLayout>        
         <Grid RelativeLayout.WidthConstraint=
                   "{ConstraintExpression Type=RelativeToParent, Property=Width}"
                 RelativeLayout.HeightConstraint=
@@ -42,7 +37,6 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="9*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
                         
@@ -75,14 +69,14 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-                    
-            <Button 
-                Grid.Row="1"
-                Grid.Column="0"
-                Margin="5"
-                Command="{Binding AddPlantCommand}"
-                Image="addbutton.png">                
-            </Button>
         </Grid>
+        <Button             
+            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.8}"
+            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.9}"
+            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=.15}"
+            RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=.15}"
+            Command="{Binding AddPlantCommand}"
+            Image="addbutton.png">                
+        </Button>
   </RelativeLayout>
 </ContentPage>

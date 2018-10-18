@@ -20,18 +20,17 @@
                     <RowDefinition Height="1"/>
                 </Grid.RowDefinitions>
 
-                <ffimageloading:CachedImage 
-                       BindingContext="{Binding CurrentUserProfile}"
-                       Source="{Binding ProfileImage, Converter={StaticResource ImageConverter}}"                     
+                <ffimageloading:CachedImage
+                       Source="{Binding CurrentUserProfile.ProfileImage, Converter={StaticResource ImageConverter}}"                     
                        Grid.Row="0" 
                        Grid.Column="0"
                        Grid.RowSpan="2"
-                       Aspect="AspectFill"
+                       Aspect="AspectFit"
                        Margin="1">
                     <ffimageloading:CachedImage.GestureRecognizers>
                         <TapGestureRecognizer
-                                Command="{Binding UpdateProfilePictureCommand}"
-                                NumberOfTapsRequired="1" />
+                            Command="{Binding UpdateProfilePictureCommand}"
+                            NumberOfTapsRequired="1" />
                     </ffimageloading:CachedImage.GestureRecognizers>
                     <ffimageloading:CachedImage.CacheKeyFactory>
                         <model:UserProfileImageCacheKey/>

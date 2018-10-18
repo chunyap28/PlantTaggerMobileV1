@@ -9,18 +9,25 @@ namespace PlantTaggerV1.ViewModels.Base
         protected readonly INavigationService NavigationService;
 
         private bool _isBusy;
+        private bool _isRefreshing = false;
 
         public bool IsBusy
         {
-            get
-            {
-                return _isBusy;
-            }
-
+            get{ return _isBusy; }
             set
             {
                 _isBusy = value;
                 RaisePropertyChanged(() => IsBusy);
+            }
+        }
+
+        public bool IsRefreshing
+        {
+            get { return _isRefreshing; }
+            set
+            {
+                _isRefreshing = value;
+                RaisePropertyChanged(() => IsRefreshing);
             }
         }
 
