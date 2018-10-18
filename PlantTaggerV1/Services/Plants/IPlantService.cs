@@ -12,8 +12,8 @@ namespace PlantTaggerV1.Services
         Task<ObservableCollection<PlantTaggerV1.Models.Image>> GetImages(string plantId);
         Task<PlantTaggerV1.Models.Image> GetImage(string plantId, string imgId);
         Task AddNew(Plant plant);
+        Task Delete(string plantId);
 
         //update?
-        //delete
     }
 }

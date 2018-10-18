@@ -17,17 +17,20 @@ namespace PlantTaggerV1.ViewModels
         private ObservableCollection<Plant> _plants;
         private IUserService _userService;
         private IPlantService _plantService;
+        private IPhotoPickerService _photoPickerService;
 
+        public ICommand UpdateProfilePictureCommand => new Command(async () => await UpdateProfilePictureAsync());
         public ICommand LogoutCommand => new Command(async () => await LogoutAsync());
         public ICommand RefreshPlantsCommand => new Command(async () => await RefreshPlantsAsync());
         public ICommand AddPlantCommand => new Command(async () => await AddPlantAsync());
         public ICommand ShowPlantDetailCommand => new Command<Plant>(async (item) => await ShowPlantDetailAsync(item));
 
-        public MainPageModel(IUserService userService, IPlantService plantService)
+        public MainPageModel(IUserService userService, IPlantService plantService, IPhotoPickerService photoPickerService)
         {
             this._gardenName = "My Garden";
             this._userService = userService;
             this._plantService = plantService;
+            this._photoPickerService = photoPickerService;
         }
 
         public override async Task InitializeAsync(object navigationData)
@@ -100,7 +103,24 @@ namespace PlantTaggerV1.ViewModels
         private async Task GetUserProfileAsync(){
             try{
                 this.CurrentUserProfile = await _userService.GetProfile();
+                this.CurrentUserProfile.ProfileImage = await _userService.GetProfileImage();
             }catch(Exception ex){
+                System.Diagnostics.Debug.WriteLine("Error: " + ex.Message);
+            }
+        }
+
+        private async Task UpdateProfilePictureAsync()
+        {
+            try
+            {
+                PlantTaggerV1.Models.Image img = await _photoPickerService.PickPhotoAsync();
+                if( img != null ){
+                    this.CurrentUserProfile.ProfileImage = img;
+                    await _userService.SaveProfileImage(img);
+                }
+            }
+            catch (Exception ex)
+            {
                 System.Diagnostics.Debug.WriteLine("Error: " + ex.Message);
             }
         }

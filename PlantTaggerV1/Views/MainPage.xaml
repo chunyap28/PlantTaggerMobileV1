@@ -42,42 +42,25 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="2*"/>
-                <RowDefinition Height="6*"/>
-                <RowDefinition Height="1*"/>
+                <RowDefinition Height="9*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-
-            <Grid RelativeLayout.WidthConstraint=
-                  "{ConstraintExpression Type=RelativeToParent, Property=Width}"
-                RelativeLayout.HeightConstraint=
-                  "{ConstraintExpression Type=RelativeToParent, Property=Height}"
-                Grid.Row="0"
-                Grid.Column="0"  
-                BackgroundColor="Aqua"  >
-
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="3*"/>
-                    <ColumnDefinition Width="7*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-
-                <Image Source="profile_icon.png" VerticalOptions="Start" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"/>
-                <Label Text="{Binding CurrentUserProfile.Name, StringFormat='Hello! {0:G}'}" Grid.Row="0" Grid.Column="1"/>
-                <Label Text="{Binding Plants.Count, StringFormat='You have {0:G} plants in your garden'}" Grid.Row="1" Grid.Column="1"/>
-            </Grid>
-
+                        
             <ListView 
                 ItemsSource="{Binding Plants}"
-                Grid.Row="1" 
-                Grid.Column="0" 
-                BackgroundColor="Red"
+                Grid.Row="0" 
+                Grid.Column="0"
                 ItemTapped="OnPlantItemTapped"
                 IsPullToRefreshEnabled="True"                
                 RefreshCommand="{Binding RefreshPlantsCommand}"
                 IsRefreshing="{Binding IsRefreshing}"
+                Header="{Binding .}"
                 Style="{StaticResource PlantsListStyle}"> 
+                <ListView.HeaderTemplate>
+                    <DataTemplate>
+                        <templates:MainPageHeaderTemplate />
+                    </DataTemplate>
+                </ListView.HeaderTemplate>
                 <ListView.Behaviors>
                     <behaviors:EventToCommandBehavior                    
                         EventName="ItemTapped"
@@ -94,7 +77,7 @@
             </ListView>
                     
             <Button 
-                Grid.Row="2"
+                Grid.Row="1"
                 Grid.Column="0"
                 Margin="5"
                 Command="{Binding AddPlantCommand}"

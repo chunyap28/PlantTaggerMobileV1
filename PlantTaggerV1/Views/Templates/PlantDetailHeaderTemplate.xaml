@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="PlantTaggerV1.Views.Templates.PlantDetailHeaderTemplate">
+    <ContentView.Content>
+        <Grid RelativeLayout.WidthConstraint=
+                  "{ConstraintExpression Type=RelativeToParent, Property=Width}"
+                RelativeLayout.HeightConstraint=
+                  "{ConstraintExpression Type=RelativeToParent, Property=Height}">
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <Image Source="{Binding ProfileImage, Converter={StaticResource ImageConverter}}" 
+                   Margin="5"
+                   Grid.Row="0" 
+                   Grid.Column="0"
+                   Aspect="AspectFill"/>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

@@ -40,6 +40,13 @@ namespace PlantTaggerV1.Services
             var newPlant = await _requestProvider.PostAsync<BaseResult<Plant>>(uri, param, authToken.Token);
         }
 
+        public async Task Delete(string plantId)
+        {
+            AccessToken authToken = getAuthToken();
+            string uri = Constants.PtBasedUrl + "user/plant/" + plantId;
+            await _requestProvider.DeleteAsync(uri, authToken.Token);
+        }
+
         public async Task<PlantTaggerV1.Models.Image> GetProfileImage(string plantId)
         {
             AccessToken authToken = getAuthToken();

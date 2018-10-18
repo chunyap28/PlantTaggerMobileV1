@@ -41,6 +41,7 @@ namespace PlantTaggerV1.Services
 
                 Image img = new Image();
                 img.Reference = new FileReference();
+                img.FileName = file.Path;
                 img.fromStream(file.GetStream());
                 return img;
             }

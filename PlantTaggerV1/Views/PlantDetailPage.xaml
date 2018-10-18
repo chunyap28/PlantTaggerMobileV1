@@ -5,7 +5,12 @@
              xmlns:views="clr-namespace:PlantTaggerV1.Views"
              xmlns:viewModelBase="clr-namespace:PlantTaggerV1.ViewModels.Base"
              xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
-             viewModelBase:ViewModelLocator.AutoWireViewModel="true">
+             xmlns:templates="clr-namespace:PlantTaggerV1.Views.Templates"
+             viewModelBase:ViewModelLocator.AutoWireViewModel="true"             
+             Title="{Binding CurrentPlant.Name}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Name="..." Text="..."  Order="Primary" Clicked="OnOptionRequested"></ToolbarItem>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <Grid RelativeLayout.WidthConstraint=
                   "{ConstraintExpression Type=RelativeToParent, Property=Width}"
@@ -14,35 +19,24 @@
             
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="2*"/>
-                <RowDefinition Height="7*"/>
-                <RowDefinition Height="1*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            
-            <Image Source="{Binding CurrentPlant.ProfileImage, Converter={StaticResource ImageConverter}}" 
-                   Margin="5"
-                   Grid.Row="0" 
-                   Grid.Column="0"/>
-            <Label Grid.Row="0" Grid.Column="1" BackgroundColor="Green"
-                Text="{Binding CurrentPlant.Name}"/>
-            
+                        
             <flv:FlowListView 
-                Grid.Row="1"
+                Grid.Row="0"
                 Grid.Column="0"
-                Grid.ColumnSpan="2"
                 FlowColumnCount="3" 
                 SeparatorVisibility="None" 
                 HasUnevenRows="false"
-                Header=""
+                Header="{Binding CurrentPlant}"
                 FlowItemTappedCommand="{Binding ItemTappedCommand}" FlowLastTappedItem="{Binding LastTappedItem}"
                 FlowItemsSource="{Binding PlantImages}" >
                 
                 <flv:FlowListView.HeaderTemplate>
                     <DataTemplate>
-                        <Label Text="Header..."/>
+                        <templates:PlantDetailHeaderTemplate />
                     </DataTemplate>
                 </flv:FlowListView.HeaderTemplate>
                 <flv:FlowListView.FlowColumnTemplate>

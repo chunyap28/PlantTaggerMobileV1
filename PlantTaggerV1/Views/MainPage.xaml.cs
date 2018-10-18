@@ -17,6 +17,7 @@ namespace PlantTaggerV1.Views
             InitializeComponent();
             SlideMenu = _rightSideMenu;
             this._rightSideMenu.MenuItemTapped += OnMenuItemTapped;
+            NavigationPage.SetBackButtonTitle(this, "");
         }
 
         public Action HideMenuAction

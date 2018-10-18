@@ -19,6 +19,8 @@ namespace PlantTaggerV1.Models
         [JsonProperty("reference")]
         public FileReference Reference { get; set; }
 
+        public string FileName { get; set; }
+
         private byte[] _content;
         [JsonProperty("content")]
         public byte[] Content

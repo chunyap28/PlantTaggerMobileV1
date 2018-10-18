@@ -3,7 +3,7 @@ using Xamarin.Forms;
 
 namespace PlantTaggerV1.Models
 {
-    public class UserProfile
+    public class UserProfile : BindableObject
     {
         [JsonProperty("uuid")]
         public string Uuid { get; set; }
@@ -13,5 +13,17 @@ namespace PlantTaggerV1.Models
 
         [JsonProperty("email")]
         public string Email { get; set; }
+
+        private Image _profileImage;
+        [JsonIgnore]
+        public Image ProfileImage
+        {
+            get { return _profileImage; }
+            set
+            {
+                _profileImage = value;
+                OnPropertyChanged("ProfileImage");
+            }
+        }
     }
 }

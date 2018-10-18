@@ -110,7 +110,8 @@ namespace PlantTaggerV1.Services
         public async Task DeleteAsync(string uri, string token = "")
         {
             HttpClient httpClient = CreateHttpClient(token);
-            await httpClient.DeleteAsync(uri);
+            HttpResponseMessage response = await httpClient.DeleteAsync(uri);
+            await HandleResponse(response);
         }
 
         private HttpClient CreateHttpClient(string token = "")

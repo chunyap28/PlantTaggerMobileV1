@@ -1,18 +1,21 @@
 ﻿using System;
+using System.Threading.Tasks;
+using System.Collections.ObjectModel;
+using System.Windows.Input;
+using Xamarin.Forms;
 using PlantTaggerV1.ViewModels.Base;
 using PlantTaggerV1.Validations;
 using PlantTaggerV1.Services;
 using PlantTaggerV1.Models;
-using System.Threading.Tasks;
-using System.Collections.ObjectModel;
 
 namespace PlantTaggerV1.ViewModels
 {
     public class PlantDetailPageModel : ViewModelBase
     {
         private Plant _currentPlant;
-        private ObservableCollection<Image> _plantImages;
+        private ObservableCollection<PlantTaggerV1.Models.Image> _plantImages;
         private IPlantService _plantService;
+        public ICommand DeletePlantCommand => new Command(async () => await DeletePlantAsync());
 
         public PlantDetailPageModel(IPlantService plantService)
         {
@@ -40,7 +43,7 @@ namespace PlantTaggerV1.ViewModels
             }
         }
 
-        public ObservableCollection<Image> PlantImages
+        public ObservableCollection<PlantTaggerV1.Models.Image> PlantImages
         {
             get { return _plantImages; }
             set
@@ -55,15 +58,31 @@ namespace PlantTaggerV1.ViewModels
             try
             {
                 this.PlantImages = await _plantService.GetImages(this.CurrentPlant.Uuid);
-                foreach (Image plantImage in this.PlantImages)
+                foreach (PlantTaggerV1.Models.Image plantImage in this.PlantImages)
                 {
-                    Image img = await _plantService.GetImage(this.CurrentPlant.Uuid, plantImage.Uuid);
+                    PlantTaggerV1.Models.Image img = await _plantService.GetImage(this.CurrentPlant.Uuid, plantImage.Uuid);
                     plantImage.Content = img.Content;
                 }
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine("Error: " + ex.Message);
+            }
+        }
+
+        private async Task DeletePlantAsync()
+        {
+            try
+            {
+                await _plantService.Delete(CurrentPlant.Uuid);
+                await NavigationService.NavigateToAsync<MainPageModel>();
+                await NavigationService.RemoveLastFromBackStackAsync();
+                await NavigationService.RemoveLastFromBackStackAsync();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Error: " + ex.Message);
+                await DialogService.ShowAlertAsync(ex.Message, "Delete Failed", "Ok");
             }
         }
     }

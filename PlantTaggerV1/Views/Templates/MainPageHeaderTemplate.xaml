@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="PlantTaggerV1.Views.Templates.MainPageHeaderTemplate"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:model="clr-namespace:PlantTaggerV1.Models">
+    <ContentView.Content>
+        <Grid RelativeLayout.WidthConstraint=
+                  "{ConstraintExpression Type=RelativeToParent, Property=Width}"
+                RelativeLayout.HeightConstraint=
+                  "{ConstraintExpression Type=RelativeToParent, Property=Height}">
+            
+            <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="7*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="1"/>
+                </Grid.RowDefinitions>
+
+                <ffimageloading:CachedImage 
+                       BindingContext="{Binding CurrentUserProfile}"
+                       Source="{Binding ProfileImage, Converter={StaticResource ImageConverter}}"                     
+                       Grid.Row="0" 
+                       Grid.Column="0"
+                       Grid.RowSpan="2"
+                       Aspect="AspectFill"
+                       Margin="1">
+                    <ffimageloading:CachedImage.GestureRecognizers>
+                        <TapGestureRecognizer
+                                Command="{Binding UpdateProfilePictureCommand}"
+                                NumberOfTapsRequired="1" />
+                    </ffimageloading:CachedImage.GestureRecognizers>
+                    <ffimageloading:CachedImage.CacheKeyFactory>
+                        <model:UserProfileImageCacheKey/>
+                    </ffimageloading:CachedImage.CacheKeyFactory>
+                    <ffimageloading:CachedImage.LoadingPlaceholder>
+                        <OnPlatform x:TypeArguments="ImageSource">
+                        <On Platform="iOS, Android" Value="profile_icon" />
+                        </OnPlatform>
+                    </ffimageloading:CachedImage.LoadingPlaceholder>
+                </ffimageloading:CachedImage>
+                <Label Text="{Binding CurrentUserProfile.Name, StringFormat='Hello! {0:G}'}" Grid.Row="0" Grid.Column="1"/>
+                <Label Text="{Binding Plants.Count, StringFormat='You have {0:G} plants in your garden'}" Grid.Row="1" Grid.Column="1"/>
+                <BoxView BackgroundColor="Black" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" />
+        </Grid>
+    </ContentView.Content>
+</ContentView>
